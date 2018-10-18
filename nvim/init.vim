@@ -6,9 +6,11 @@ let g:python3_host_prog = '/Users/johnwook/.pyenv/versions/neovim3/bin/python'
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'airblade/vim-gitgutter'
+Plug 'iamcco/markdown-preview.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'mhartington/oceanic-next'
 Plug 'mhinz/vim-startify'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-sensible'
 
@@ -33,6 +35,12 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 set number
+let g:indent_guides_enable_on_vim_startup = 1
+if exists('&signcolumn')  " Vim 7.4.2201
+  set signcolumn=yes
+else
+  let g:gitgutter_sign_column_always = 1
+endif
 
 " Encoding
 set fileencoding=utf-8
