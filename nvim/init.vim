@@ -12,6 +12,8 @@ Plug 'mhartington/oceanic-next'
 Plug 'mhinz/vim-startify'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'sbdchd/neoformat'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sensible'
 
 Plug '/usr/local/opt/fzf'
@@ -34,7 +36,7 @@ let g:lightline = {
 set expandtab
 set tabstop=2
 set shiftwidth=2
-set number
+set number relativenumber
 let g:indent_guides_enable_on_vim_startup = 1
 if exists('&signcolumn')  " Vim 7.4.2201
   set signcolumn=yes
