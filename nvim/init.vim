@@ -17,6 +17,7 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sensible'
 
 Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Initialize plugin system
 call plug#end()
