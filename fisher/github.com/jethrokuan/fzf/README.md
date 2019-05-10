@@ -32,7 +32,7 @@ omf install https://github.com/jethrokuan/fzf
 
 ## Requirements
 
-- [fish](https://github.com/fish-shell/fish-shell) `>=2.6.0`
+- [fish](https://github.com/fish-shell/fish-shell) `>=2.4.0`
 - [fzf](https://github.com/junegunn/fzf) `>0.11.3`
 
 ## About the fzf binary
@@ -70,12 +70,12 @@ documented.
 
 | Variable                       | Remarks                                                     | Example                                                       |
 | ------------------------------ | ----------------------------------------------------------- | ------------------------------------------------------------- |
-| `FZF_FIND_FILE_COMMAND`        | Modify the command used to generate the list of files       | `set -U FZF_FIND_FILE_COMMAND "ag -l --hidden --ignore .git"` |
+| `FZF_FIND_FILE_COMMAND`        | Modify the command used to generate the list of files       | `set -U FZF_FIND_FILE_COMMAND "ag -l --hidden --ignore .git . \$dir 2> /dev/null"` or `set -U FZF_FIND_FILE_COMMAND "fd --type f . \$dir"` (`$dir` represents the directory being completed) |
 | `FZF_CD_COMMAND`               | Similar to ^                                                | Similar to ^                                                  |
 | `FZF_CD_WITH_HIDDEN_COMMAND`   | Similar to ^                                                | Similar to ^                                                  |
 | `FZF_OPEN_COMMAND`             | Similar to ^                                                | Similar to ^                                                  |
-| `FZF_PREVIEW_FILE_COMMAND`     | Modify the command used to generate preview of files.       | `set -U FZF_PREVIEW_FILE_COMMAND "head -n 10"`                |
-| `FZF_PREVIEW_DIR_COMMAND`      | Modify the command used to generate preview of directories. | `set -U FZF_PREVIEW_FILE_COMMAND "ls"`                        |
+| `FZF_PREVIEW_FILE_CMD`     | Modify the command used to generate preview of files.       | `set -U FZF_PREVIEW_FILE_CMD "head -n 10"`                |
+| `FZF_PREVIEW_DIR_CMD`      | Modify the command used to generate preview of directories. | `set -U FZF_PREVIEW_DIR_CMD "ls"`                        |
 
 ## Variables
 
@@ -87,10 +87,16 @@ documented.
 | `FZF_CD_WITH_HIDDEN_OPTS`   | Similar to ^                                                  | Similar to ^                                          |
 | `FZF_REVERSE_ISEARCH_OPTS`  | Similar to ^                                                  | Similar to ^                                          |
 | `FZF_OPEN_OPTS`             | Similar to ^                                                  | Similar to ^                                          |
+| `FZF_COMPLETE_OPTS`         | Similar to ^                                                  | Similar to ^                                          |
 | `FZF_TMUX`                  | Runs a tmux-friendly version of fzf instead.                  | `set -U FZF_TMUX 1`                                   |
-| `FZF_COMPLETE`              | Enable fzf for fish tab completion.                           | `set -U FZF_COMPLETE 1`                               |
 | `FZF_ENABLE_OPEN_PREVIEW`   | Enable preview window open command.                           | `set -U FZF_ENABLE_OPEN_PREVIEW 1`                    |
 
+## FZF Tab Completions
+This package ships with a `fzf` widget for fancy tab completions.
+Please see [the wiki
+page](https://github.com/jethrokuan/fzf/wiki/FZF-Tab-Completions) for details.
+
+###
 [tmux]: https://tmux.github.io/
 [fisher]: https://github.com/jorgebucaran/fisher
 [oh-my-fish]: https://github.com/oh-my-fish/oh-my-fish
