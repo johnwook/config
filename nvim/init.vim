@@ -1,6 +1,6 @@
 " Python
-let g:python_host_prog = '/Users/johnwook/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = '/Users/johnwook/.pyenv/versions/neovim3/bin/python'
+" let g:python_host_prog = '/Users/johnwook/.pyenv/versions/neovim2/bin/python'
+" let g:python3_host_prog = '/Users/johnwook/.pyenv/versions/neovim3/bin/python'
 
 " vim-plug(https://github.com/junegunn/vim-plug)
 call plug#begin('~/.local/share/nvim/plugged')
@@ -23,9 +23,7 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " Or if you have Neovim >= 0.1.5
-if (has("termguicolors"))
- set termguicolors
-endif
+set termguicolors
 
 " Theme
 colorscheme OceanicNext
