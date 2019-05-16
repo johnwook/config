@@ -1,2 +1,2 @@
 source ~/.asdf/asdf.fish
-eval (python -m virtualfish)
+eval (/Users/johnwook/.asdf/installs/python/3.7.3/bin/python -m virtualfish)
