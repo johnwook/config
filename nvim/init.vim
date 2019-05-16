@@ -13,20 +13,25 @@ Plug 'junegunn/fzf.vim'
 " Initialize plugin system
 call plug#end()
 
-" Or if you have Neovim >= 0.1.5
-set termguicolors
 
 " Theme
 " colorscheme OceanicNext
 " let g:lightline = {
 "       \ 'colorscheme': 'oceanicnext',
 "       \ }
+"
+set termguicolors
 
-" Editor
+set fileencoding=utf-8
+set encoding=utf-8
+
 set expandtab
 set tabstop=2
 set shiftwidth=2
 set number relativenumber
+
+set hidden
+set splitbelow
 set splitright
 
 " let g:indent_guides_enable_on_vim_startup = 1
@@ -35,10 +40,3 @@ set splitright
 " else
 "   let g:gitgutter_sign_column_always = 1
 " endif
-
-" Encoding
-set fileencoding=utf-8
-set encoding=utf-8
-
-set updatetime=300
-set hidden
