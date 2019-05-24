@@ -22,13 +22,12 @@ call plug#end()
 "
 set termguicolors
 
-set fileencoding=utf-8
-set encoding=utf-8
+set fileencodings=utf-8,euc-kr,latin1
 
 set expandtab
-set tabstop=2
-set shiftwidth=2
 set number relativenumber
+set shiftwidth=2
+set tabstop=2
 
 set hidden
 set splitbelow
