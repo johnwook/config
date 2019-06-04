@@ -6,6 +6,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -32,6 +33,8 @@ set tabstop=2
 set hidden
 set splitbelow
 set splitright
+
+set updatetime=100
 
 " let g:indent_guides_enable_on_vim_startup = 1
 " if exists('&signcolumn')  " Vim 7.4.2201
