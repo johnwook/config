@@ -36,9 +36,4 @@ set splitright
 
 set updatetime=100
 
-" let g:indent_guides_enable_on_vim_startup = 1
-" if exists('&signcolumn')  " Vim 7.4.2201
-"   set signcolumn=yes
-" else
-"   let g:gitgutter_sign_column_always = 1
-" endif
+set signcolumn=yes
