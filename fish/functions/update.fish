@@ -3,4 +3,5 @@ function update
   brew cleanup;
   asdf update;
   fisher self-update;
+  fisher;
 end
