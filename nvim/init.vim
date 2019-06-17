@@ -1,26 +1,25 @@
-" Python
-" let g:python_host_prog = '/Users/johnwook/.pyenv/versions/neovim2/bin/python'
-" let g:python3_host_prog = '/Users/johnwook/.pyenv/versions/neovim3/bin/python'
-
 " vim-plug(https://github.com/junegunn/vim-plug)
 call plug#begin('~/.local/share/nvim/plugged')
 
+" Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
+" FZF
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+
+" Markdown
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " Initialize plugin system
 call plug#end()
 
+" Plugin specific configuration
+let g:vim_markdown_folding_disabled = 1
 
-" Theme
-" colorscheme OceanicNext
-" let g:lightline = {
-"       \ 'colorscheme': 'oceanicnext',
-"       \ }
-"
+" Vim configuration
 set termguicolors
 
 set fileencodings=utf-8,euc-kr,latin1
