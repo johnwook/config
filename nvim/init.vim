@@ -27,7 +27,7 @@ let g:coc_node_path='/Users/johnwook/.asdf/installs/nodejs/10.16.0/bin/node'
 
 let g:python3_host_prog='/Users/johnwook/.virtualenvs/neovim/bin/python'
 let g:python_host_prog='/Users/johnwook/.virtualenvs/neovim2/bin/python'
-let g:ruby_host_prog='/Users/johnwook/.asdf/shims/neovim-ruby-host'
+let g:ruby_host_prog='/Users/johnwook/.asdf/installs/ruby/2.6.3/lib/ruby/gems/2.6.0/gems/neovim-0.8.1/exe/neovim-ruby-host'
 let g:node_host_prog='/Users/johnwook/.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/neovim/bin/cli' 
 " Vim configuration
 set termguicolors
@@ -43,6 +43,6 @@ set hidden
 set splitbelow
 set splitright
 
-set updatetime=100
+set updatetime=300
 
 set signcolumn=yes
