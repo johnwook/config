@@ -16,6 +16,9 @@ Plug 'plasticboy/vim-markdown'
 " coc.nvim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" Editor
+Plug 'nelstrom/vim-visual-star-search'
+
 " Initialize plugin system
 call plug#end()
 
