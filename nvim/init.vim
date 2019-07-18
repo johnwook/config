@@ -18,6 +18,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Editor
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'mbbill/undotree'
+Plug 'junegunn/vim-peekaboo'
 
 " Initialize plugin system
 call plug#end()
