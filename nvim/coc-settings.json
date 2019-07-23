@@ -1,0 +1,6 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [ "javascript", "javascriptreact", "typescript", "typescriptreact", "json",
+    "graphql"
+  ],
+  "suggest.minTriggerInputLength": 2
+}

@@ -51,3 +51,17 @@ set splitright
 set updatetime=300
 
 set signcolumn=yes
+
+" coc.nvim
+" commenthighlighting
+" - https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+" Use <Tab> and <S-Tab> to navigate the completion list:
+" - https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources#improve-the-completion-experience
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" prettier
+" - https://github.com/neoclide/coc-prettier#setup-prettier-command-in-your-initvim-or-vimrc
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
