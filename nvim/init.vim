@@ -73,6 +73,7 @@ endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " prettier
 " - https://github.com/neoclide/coc-prettier#setup-prettier-command-in-your-initvim-or-vimrc
