@@ -52,15 +52,27 @@ set updatetime=300
 
 set signcolumn=yes
 
+set cmdheight=2
+
 " coc.nvim
 " commenthighlighting
 " - https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
-" Use <Tab> and <S-Tab> to navigate the completion list:
-" - https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources#improve-the-completion-experience
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " prettier
 " - https://github.com/neoclide/coc-prettier#setup-prettier-command-in-your-initvim-or-vimrc
