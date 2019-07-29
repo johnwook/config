@@ -1,6 +1,8 @@
 configstore
-fish/fishd.7831c1bbe026
+fish/*
+!fish/functions
 fish/functions/_*
+!fish/fishfile
 .netrwhist
 devcert
 gatsby
