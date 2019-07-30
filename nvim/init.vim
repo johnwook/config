@@ -23,6 +23,12 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'sheerun/vim-polyglot'
 Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'nathanaelkane/vim-indent-guides'
+
+" Focus
+Plug 'junegunn/goyo.vim' 
+Plug 'junegunn/limelight.vim' 
 
 " Initialize plugin system
 call plug#end()
@@ -37,6 +43,7 @@ let g:python3_host_prog='/Users/johnwook/.virtualenvs/neovim/bin/python'
 let g:python_host_prog='/Users/johnwook/.virtualenvs/neovim2/bin/python'
 let g:ruby_host_prog='/Users/johnwook/.asdf/installs/ruby/2.6.3/lib/ruby/gems/2.6.0/gems/neovim-0.8.1/exe/neovim-ruby-host'
 let g:node_host_prog='/Users/johnwook/.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/neovim/bin/cli' 
+
 " Vim configuration
 set termguicolors
 
@@ -56,6 +63,8 @@ set signcolumn=yes
 set cmdheight=2
 syntax on
 colorscheme iceberg
+
+let g:indent_guides_enable_on_vim_startup = 1
 
 function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
