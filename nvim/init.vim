@@ -32,7 +32,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 
-
 " Focus
 Plug 'junegunn/limelight.vim' 
 Plug 'junegunn/goyo.vim' 
