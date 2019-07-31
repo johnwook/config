@@ -28,8 +28,8 @@ Plug 'mbbill/undotree'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
-
 
 " Focus
 Plug 'junegunn/limelight.vim' 
@@ -78,7 +78,6 @@ set updatetime=300
 set signcolumn=yes
 set cmdheight=2
 
-syntax on
 colorscheme iceberg
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
