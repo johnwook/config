@@ -22,6 +22,7 @@ Plug 'itchyny/lightline.vim'
 " Editor
 Plug 'euclio/vim-markdown-composer'
 Plug 'jiangmiao/auto-pairs'
+Plug 'justinmk/vim-gtfo'
 Plug 'junegunn/vim-peekaboo'
 Plug 'justinmk/vim-sneak'
 Plug 'mbbill/undotree'
@@ -35,9 +36,6 @@ Plug 'tpope/vim-surround'
 " Focus
 Plug 'junegunn/limelight.vim' 
 Plug 'junegunn/goyo.vim' 
-
-" Session
-Plug 'tpope/vim-obsession'
 
 " Initialize plugin system
 call plug#end()
