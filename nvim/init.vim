@@ -2,7 +2,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 " Git
-Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " FZF
@@ -16,60 +15,33 @@ Plug 'plasticboy/vim-markdown'
 " coc.nvim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Editor
-Plug 'nelstrom/vim-visual-star-search'
-Plug 'mbbill/undotree'
-Plug 'junegunn/vim-peekaboo'
-Plug 'sheerun/vim-polyglot'
+" Theme
 Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
+
+" Editor
 Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/vim-peekaboo'
+Plug 'justinmk/vim-sneak'
+Plug 'mbbill/undotree'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-surround'
 
 " Focus
-Plug 'junegunn/goyo.vim' 
 Plug 'junegunn/limelight.vim' 
+Plug 'junegunn/goyo.vim' 
+
+" Session
+Plug 'tpope/vim-obsession'
 
 " Initialize plugin system
 call plug#end()
 
 " Plugin specific configuration
-let g:vim_markdown_folding_disabled=1
-
-" Executables
 let g:coc_node_path='/Users/johnwook/.asdf/installs/nodejs/10.16.0/bin/node'
-
-let g:python3_host_prog='/Users/johnwook/.virtualenvs/neovim/bin/python'
-let g:python_host_prog='/Users/johnwook/.virtualenvs/neovim2/bin/python'
-let g:ruby_host_prog='/Users/johnwook/.asdf/installs/ruby/2.6.3/lib/ruby/gems/2.6.0/gems/neovim-0.8.1/exe/neovim-ruby-host'
-let g:node_host_prog='/Users/johnwook/.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/neovim/bin/cli' 
-
-" Vim configuration
-set termguicolors
-
-set fileencodings=utf-8,euc-kr,latin1
-
-set expandtab
-set number relativenumber
-set shiftwidth=2
-set tabstop=2
-
-set hidden
-set splitbelow
-set splitright
-
-set updatetime=300
-set signcolumn=yes
-set cmdheight=2
-syntax on
-colorscheme iceberg
-
 let g:indent_guides_enable_on_vim_startup = 1
-
-function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
-endfunction
-
 let g:lightline = {
       \ 'colorscheme': 'iceberg',
       \ 'active': {
@@ -81,9 +53,38 @@ let g:lightline = {
       \   'currentfunction': 'CocCurrentFunction'
       \ },
       \ }
+let g:sneak#label = 1
+let g:vim_markdown_folding_disabled=1
+
+" Executables
+let g:python3_host_prog='/Users/johnwook/.virtualenvs/neovim/bin/python'
+let g:python_host_prog='/Users/johnwook/.virtualenvs/neovim2/bin/python'
+let g:ruby_host_prog='/Users/johnwook/.asdf/installs/ruby/2.6.3/lib/ruby/gems/2.6.0/gems/neovim-0.8.1/exe/neovim-ruby-host'
+let g:node_host_prog='/Users/johnwook/.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/neovim/bin/cli' 
+
+" Vim configuration
+set termguicolors
+set fileencodings=utf-8,euc-kr,latin1
+set expandtab
+set number relativenumber
+set shiftwidth=2
+set tabstop=2
+set hidden
+set splitbelow
+set splitright
+set updatetime=300
+set signcolumn=yes
+set cmdheight=2
+
+syntax on
+colorscheme iceberg
+
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " coc.nvim
-autocmd FileType json syntax match Comment +\/\/.\+$+
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
@@ -110,7 +111,6 @@ nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr><Paste>
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
