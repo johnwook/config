@@ -20,6 +20,7 @@ Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
 
 " Editor
+Plug 'euclio/vim-markdown-composer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-peekaboo'
 Plug 'justinmk/vim-sneak'
@@ -28,6 +29,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
+
 
 " Focus
 Plug 'junegunn/limelight.vim' 
