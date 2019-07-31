@@ -129,11 +129,11 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
 " prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-" To enable highlight current symbol on CursorHold, add:
-autocmd CursorHold * silent call CocActionAsync('highlight')
