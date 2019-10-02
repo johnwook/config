@@ -19,7 +19,6 @@ Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
 
 " Editor
-Plug 'euclio/vim-markdown-composer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'justinmk/vim-gtfo'
 Plug 'junegunn/vim-peekaboo'
