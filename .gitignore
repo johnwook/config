@@ -9,6 +9,7 @@ fish/completions
 fish/conf.d
 fish/fish_variables
 fish/functions/_**
+fish/functions/enhancd.fish
 fish/functions/fish_user_key_bindings.fish
 fish/functions/fisher.fish
 fish/functions/fzf_key_bindings.fish
