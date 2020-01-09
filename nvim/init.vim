@@ -43,11 +43,13 @@ let g:coc_node_path='/Users/johnwook/.asdf/installs/nodejs/12.14.1/bin/node'
 let g:coc_global_extensions = [
   \ 'coc-css',
   \ 'coc-highlight',
+  \ 'coc-emoji',
   \ 'coc-html',
   \ 'coc-json',
   \ 'coc-prettier',
   \ 'coc-snippets',
   \ 'coc-tsserver',
+  \ 'coc-word',
   \ 'coc-yaml',
   \ 'coc-yank'
   \ ]
