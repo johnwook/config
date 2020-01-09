@@ -39,7 +39,19 @@ Plug 'junegunn/goyo.vim'
 call plug#end()
 
 " Plugin specific configuration
-let g:coc_node_path='/Users/johnwook/.asdf/installs/nodejs/10.16.0/bin/node'
+let g:coc_node_path='/Users/johnwook/.asdf/installs/nodejs/12.14.1/bin/node'
+let g:coc_global_extensions = [
+  \ 'coc-css',
+  \ 'coc-highlight',
+  \ 'coc-html',
+  \ 'coc-json',
+  \ 'coc-prettier',
+  \ 'coc-snippets',
+  \ 'coc-tsserver',
+  \ 'coc-yaml',
+  \ 'coc-yank'
+  \ ]
+
 let g:indent_guides_enable_on_vim_startup = 1
 let g:lightline = {
       \ 'colorscheme': 'iceberg',
@@ -57,8 +69,8 @@ let g:sneak#label = 1
 " Executables
 let g:python3_host_prog='/Users/johnwook/.virtualenvs/neovim/bin/python'
 let g:python_host_prog='/Users/johnwook/.virtualenvs/neovim2/bin/python'
-let g:ruby_host_prog='/Users/johnwook/.asdf/installs/ruby/2.6.3/lib/ruby/gems/2.6.0/gems/neovim-0.8.1/exe/neovim-ruby-host'
-let g:node_host_prog='/Users/johnwook/.asdf/installs/nodejs/10.16.0/.npm/lib/node_modules/neovim/bin/cli' 
+let g:ruby_host_prog='/Users/johnwook/.asdf/installs/ruby/2.7.0/lib/ruby/gems/2.7.0/gems/neovim-0.8.1/exe/neovim-ruby-host'
+let g:node_host_prog='/Users/johnwook/.asdf/installs/nodejs/12.14.1/.npm/lib/node_modules/neovim/bin/cli' 
 
 " Vim configuration
 set termguicolors
@@ -131,6 +143,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
+
+nnoremap <silent> <space>y  :<C-u>CocList --normal yank<cr>
+nnoremap <F5> :UndotreeToggle<cr>
 
 " prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
