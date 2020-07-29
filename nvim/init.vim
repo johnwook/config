@@ -152,3 +152,5 @@ nnoremap <F5> :UndotreeToggle<cr>
 
 " prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+vmap '' "+y
