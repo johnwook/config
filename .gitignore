@@ -2,3 +2,5 @@ coc/
 !coc/extensions/package.json
 configstore/
 nvim/.netrwhist
+fish/functions
+fish/conf.d
