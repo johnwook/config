@@ -1,1 +1,12 @@
-{"dependencies":{}}
+{
+  "dependencies": {
+    "coc-eslint": ">=1.2.7",
+    "coc-explorer": ">=0.7.24",
+    "coc-highlight": ">=1.2.5",
+    "coc-html": ">=1.2.4",
+    "coc-json": ">=1.2.6",
+    "coc-tsserver": ">=1.5.3",
+    "coc-word": ">=1.2.2",
+    "coc-yank": ">=1.1.4"
+  }
+}

@@ -1,0 +1,4 @@
+coc/
+!coc/extensions/package.json
+configstore/
+nvim/.netrwhist

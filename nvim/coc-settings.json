@@ -1,0 +1,5 @@
+{
+  "eslint.quiet": true,
+  "eslint.packageManager": "npm",
+  "eslint.nodePath": "/Users/johnwook/.asdf/installs/nodejs/12.18.3/.npm/lib/node_modules"
+}
