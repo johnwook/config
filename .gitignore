@@ -4,3 +4,4 @@ configstore/
 nvim/.netrwhist
 fish/functions
 fish/conf.d
+gcloud/
