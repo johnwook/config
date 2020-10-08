@@ -1,4 +1,6 @@
-coc/
+coc/*
+!coc/extensions
+coc/extensions/*
 !coc/extensions/package.json
 configstore/
 nvim/.netrwhist
