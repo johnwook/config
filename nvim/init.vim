@@ -29,6 +29,9 @@ Plug 'tpope/vim-surround'
 " LSP
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" Others
+Plug 'diepm/vim-rest-console'
+
 " Initialize plugin system
 call plug#end()
 
