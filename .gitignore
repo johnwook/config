@@ -4,7 +4,9 @@ coc/extensions/*
 !coc/extensions/package.json
 configstore/
 nvim/.netrwhist
-fish/functions
+fish/functions/*
+!fish/functions/g.fish
+!fish/functions/vi.fish
 fish/conf.d
 gcloud/
 tmux/plugins
