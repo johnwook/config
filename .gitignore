@@ -10,3 +10,4 @@ fish/functions/*
 fish/conf.d
 gcloud/
 tmux/plugins
+qBittorrent
