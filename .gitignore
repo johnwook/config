@@ -6,6 +6,10 @@ configstore/
 nvim/.netrwhist
 fish/functions/*
 !fish/functions/vi.fish
+!fish/functions/ls.fish
+!fish/functions/la.fish
+!fish/functions/ll.fish
 fish/conf.d
 gcloud/
 tmux/plugins
+qBittorrent
