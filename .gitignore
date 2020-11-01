@@ -5,7 +5,6 @@ coc/extensions/*
 configstore/
 nvim/.netrwhist
 fish/functions/*
-!fish/functions/g.fish
 !fish/functions/vi.fish
 fish/conf.d
 gcloud/
