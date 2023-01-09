@@ -10,7 +10,13 @@ fish/functions/*
 !fish/functions/la.fish
 !fish/functions/ll.fish
 fish/conf.d
+fish/completions/
+fish/fish_variables
 gcloud/
+github-copilot/
+gitui/
+karabiner/
+k9s/
 tmux/plugins
 qBittorrent
 stripe
