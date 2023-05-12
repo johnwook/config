@@ -1,95 +1,69 @@
-" vim-plug(https://github.com/junegunn/vim-plug)
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Git
-Plug 'airblade/vim-gitgutter'
-
 " FZF
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 
-" Theme
-Plug 'cocopon/iceberg.vim'
-Plug 'itchyny/lightline.vim'
+" Color theme
+Plug 'catppuccin/nvim'
 
-" Editor
-Plug 'jiangmiao/auto-pairs'
-Plug 'godlygeek/tabular'
-Plug 'justinmk/vim-gtfo'
-Plug 'junegunn/vim-peekaboo'
-Plug 'justinmk/vim-sneak'
-Plug 'mbbill/undotree'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'nelstrom/vim-visual-star-search'
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
+" Status / Bar
+Plug 'folke/trouble.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'rcarriga/nvim-notify'
 
-" LSP
+" Programming
+Plug 'echasnovski/mini.nvim'
+Plug 'folke/which-key.nvim'
+Plug 'mfussenegger/nvim-dap'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Others
-
-" Initialize plugin system
 call plug#end()
 
-" Plugin configurations
-let g:indent_guides_enable_on_vim_startup = 1
+colorscheme catppuccin
 
-function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
-endfunction
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 
-let g:lightline = {
-      \  'colorscheme': 'iceberg',
-      \  'active': {
-      \    'left': [ [ 'mode', 'paste' ],
-      \              [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
-      \  },
-      \  'component_function': {
-      \    'cocstatus': 'coc#status',
-      \    'currentfunction': 'CocCurrentFunction'
-      \  },
-      \}
-let g:sneak#label = 1
+let g:python3_host_prog = '/Users/johnwook/.asdf/installs/python/3.10.11/bin/python3'
+let g:node_host_prog = '/Users/johnwook/.asdf/installs/nodejs/18.16.0/bin/neovim-node-host'
 
-" coc.nvim configuration
-let g:coc_node_path = '/Users/johnwook/.asdf/installs/nodejs/18.12.1/bin/node'
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
+" Coc
+let g:coc_node_path = '/Users/johnwook/.asdf/installs/nodejs/18.16.0/bin/node'
+
+set nobackup
+set nowritebackup
+
+" Use tab for trigger completion with characters ahead and navigate
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#next(1) :
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
+" Use <c-space> to trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
+" GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
+" Use K to show documentation in preview window
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
@@ -100,38 +74,21 @@ function! ShowDocumentation()
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming.
+" Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
-  " Setup formatexpr specified filetype(s).
+  " Setup formatexpr specified filetype(s)
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
+  " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Remap keys for apply code actions affect whole buffer
-nmap <leader>as  <Plug>(coc-codeaction-source)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+" Run the Code Lens action on the current line
+nmap <leader>cl  <Plug>(coc-codelens-action)
 
 " Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -141,9 +98,6 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-" Note coc#float#scroll works on neovim >= 0.4.0 or vim >= 8.2.0750
-"
 nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
@@ -151,71 +105,37 @@ inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float
 vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocActionAsync('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
+" Add `:OR` command for organize imports of the current buffer
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
-autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
+" Add (Neo)Vim's native statusline support
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" coc-explorer
-nnoremap <silent><nowait> <space>e  :CocCommand explorer<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-" coc-yank
-nnoremap <silent><nowait> <space>y  :<C-u>CocList -A --normal yank<cr>
-" coc-go
-autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
-autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
-autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 
-" Vim configuration
-set termguicolors
-set fileencodings=utf-8,euc-kr,latin1
-set expandtab
-set number relativenumber
-set shiftwidth=2
-set tabstop=2
-set hidden
-set splitbelow
-set splitright
-set updatetime=300
-set signcolumn=yes
-set cmdheight=2
-set nobackup
-set nowritebackup
-set shortmess+=c
-colorscheme iceberg
+lua << END
+vim.notify = require('notify')
 
-" Key bindings
-nnoremap <F5> :UndotreeToggle<cr>
-" Copy selected to clipboard
-vmap '' "+y
-
-" Providers
-let g:python3_host_prog = '/Users/johnwook/.virtualenvs/neovim/bin/python'
-let g:python_host_prog = '/Users/johnwook/.virtualenvs/neovim2/bin/python'
-let g:node_host_prog = '/Users/johnwook/.asdf/installs/nodejs/18.12.1/.npm/bin/neovim-node-host'
+require('catppuccin').setup({
+    integrations = {
+        coc_nvim = true
+    }
+})
+require('lualine').setup({
+    options = {
+        theme = 'catppuccin'
+    }
+})
+require('mini.ai').setup()
+require('mini.align').setup()
+require('mini.animate').setup()
+require('mini.basics').setup()
+require('mini.bracketed').setup()
+require('mini.cursorword').setup()
+require('mini.indentscope').setup()
+require('mini.pairs').setup()
+require('mini.surround').setup()
+require('mini.trailspace').setup()
+require("trouble").setup()
+require("which-key").setup()
+END

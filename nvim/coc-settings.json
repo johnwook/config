@@ -1,16 +1,8 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "typescript",
-    "typescriptreact",
-    "javascript",
-    "javascriptreact",
-    "json",
-    "yaml",
-    "go"
-  ],
-  "eslint.nodePath": "/Users/johnwook/.asdf/installs/nodejs/18.12.1/.npm/lib/node_modules",
+  "coc.preferences.formatOnSave": true,
+  "eslint.nodePath": "/Users/johnwook/.asdf/installs/nodejs/18.16.0/.npm/lib/node_modules",
   "eslint.packageManager": "npm",
   "eslint.quiet": true,
-  "suggest.noselect": false,
+  "suggest.noselect": true,
   "suggest.minTriggerInputLength": 2
 }
