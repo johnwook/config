@@ -18,6 +18,7 @@ Plug 'echasnovski/mini.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
 
@@ -128,7 +129,6 @@ require('lualine').setup({
 })
 require('mini.ai').setup()
 require('mini.align').setup()
-require('mini.animate').setup()
 require('mini.basics').setup()
 require('mini.bracketed').setup()
 require('mini.cursorword').setup()
@@ -136,6 +136,18 @@ require('mini.indentscope').setup()
 require('mini.pairs').setup()
 require('mini.surround').setup()
 require('mini.trailspace').setup()
+require('nvim-treesitter.configs').setup({
+    highlight = {
+        enable = true,
+    },
+    disable = function(lang, buf)
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+            return true
+        end
+    end,
+})
 require("trouble").setup()
 require("which-key").setup()
 END
