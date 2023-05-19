@@ -1,3 +1,7 @@
+if status is-interactive
+    eval (zellij setup --generate-auto-start fish | string collect)
+end
+
 starship init fish | source
 zoxide init fish | source
 source (brew --prefix asdf)/libexec/asdf.fish
