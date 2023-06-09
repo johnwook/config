@@ -1,14 +1,6 @@
-coc/*
-!coc/extensions
-coc/extensions/*
-!coc/extensions/package.json
 configstore/
 nvim/.netrwhist
 fish/functions/*
-!fish/functions/vi.fish
-!fish/functions/ls.fish
-!fish/functions/la.fish
-!fish/functions/ll.fish
 fish/conf.d
 fish/completions/
 fish/fish_variables
@@ -18,6 +10,4 @@ gitui/
 karabiner/
 k9s/
 tmux/plugins
-qBittorrent
-stripe
 direnv/
