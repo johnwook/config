@@ -32,6 +32,8 @@ require("lazy").setup({
     end,
   },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  -- LSP
+  { "williamboman/mason.nvim", build = ":MasonUpdate" },
   -- { "folke/neodev.nvim", opts = {} }
 })
 
@@ -70,6 +72,7 @@ require('nvim-treesitter.configs').setup({
     end,
   }
 })
+require("mason").setup()
 -- require("neodev").setup()
 
 -- Vim settings
