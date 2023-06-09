@@ -1,11 +1,4 @@
-# Don't print a new line at the start of the prompt
-add_newline = false
-
-# Replace the "➜" symbol in the prompt with "❯"
-[character]      # The name of the module we are confguring is "character"
-success_symbol = "[❯](bold green)"
-error_symbol = "[❯](bold red)"
-vicmd_symbol = "[❮](bold green)"
+"$schema" = 'https://starship.rs/config-schema.json'
 
 [aws]
 disabled = true
