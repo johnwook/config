@@ -34,7 +34,9 @@ require("lazy").setup({
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   -- LSP
   { "williamboman/mason.nvim", build = ":MasonUpdate" },
-  -- { "folke/neodev.nvim", opts = {} }
+  "williamboman/mason-lspconfig.nvim",
+  "neovim/nvim-lspconfig",
+  { "folke/neodev.nvim", opts = {} }
 })
 
 -- Plugin specific configurations
@@ -73,7 +75,38 @@ require('nvim-treesitter.configs').setup({
   }
 })
 require("mason").setup()
--- require("neodev").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "cssls",
+    "docker_compose_language_service",
+    "dockerls",
+    "gopls",
+    "html",
+    "jsonls",
+    "lua_ls",
+    "svelte",
+    "tailwindcss",
+    "tsserver",
+    "yamlls",
+  }
+})
+require("neodev").setup()
+require("mason-lspconfig").setup_handlers {
+  function (server_name) -- default handler (optional)
+    require("lspconfig")[server_name].setup {}
+  end,
+  ["lua_ls"] = function ()
+    require("lspconfig").lua_ls.setup({
+      settings = {
+        Lua = {
+          completion = {
+            callSnippet = "Replace"
+          }
+        }
+      }
+    })
+  end
+}
 
 -- Vim settings
 vim.o.expandtab = true
