@@ -1,13 +1,11 @@
 configstore/
 nvim/.netrwhist
-fish/functions/*
-fish/conf.d
 fish/completions/
+fish/function/ho.fish
 fish/fish_variables
 gcloud/
 github-copilot/
 gitui/
 karabiner/
 k9s/
-tmux/plugins
 direnv/
