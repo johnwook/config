@@ -12,6 +12,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.coq_settings = { auto_start = "shut-up" }
 require("lazy").setup({
   -- FZF
   { "ibhagwan/fzf-lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
@@ -36,11 +37,15 @@ require("lazy").setup({
   { "williamboman/mason.nvim", build = ":MasonUpdate" },
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
-  { "folke/neodev.nvim", opts = {} }
+  { "folke/neodev.nvim", opts = {} },
+  { "ms-jpq/coq_nvim", branch = "coq" },
+  { "ms-jpq/coq.artifacts", branch = "artifacts" },
 })
 
 -- Plugin specific configurations
 vim.cmd.colorscheme "tokyonight"
+vim.notify = require("notify")
+
 require("gitsigns").setup()
 require("lualine").setup({
   options = {
@@ -48,13 +53,11 @@ require("lualine").setup({
   }
 })
 
-vim.notify = require("notify")
 -- mini.nvim
 require("mini.ai").setup()
 require("mini.animate").setup()
 require("mini.basics").setup()
 require("mini.bracketed").setup()
-require("mini.completion").setup()
 require("mini.cursorword").setup()
 require("mini.indentscope").setup()
 require("mini.pairs").setup()
@@ -91,9 +94,11 @@ require("mason-lspconfig").setup({
   }
 })
 require("neodev").setup()
+local coq = require("coq")
+
 require("mason-lspconfig").setup_handlers {
   function (server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup {}
+    require("lspconfig")[server_name].setup(coq.lsp_ensure_capabilities({}))
   end,
   ["lua_ls"] = function ()
     require("lspconfig").lua_ls.setup({
