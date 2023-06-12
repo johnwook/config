@@ -1,5 +1,6 @@
 configstore/
 nvim/.netrwhist
+nvim/lazy-lock.json
 fish/completions/
 fish/function/ho.fish
 fish/fish_variables
@@ -9,3 +10,4 @@ gitui/
 karabiner/
 k9s/
 direnv/
+.luarc.json

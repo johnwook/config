@@ -12,6 +12,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.coq_settings = { auto_start = "shut-up" }
 require("lazy").setup({
   -- FZF
   { "ibhagwan/fzf-lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
@@ -32,11 +33,26 @@ require("lazy").setup({
     end,
   },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-  -- { "folke/neodev.nvim", opts = {} }
+  -- LSP
+  { "williamboman/mason.nvim", build = ":MasonUpdate" },
+  "williamboman/mason-lspconfig.nvim",
+  "neovim/nvim-lspconfig",
+  { "folke/neodev.nvim", opts = {} },
+  { "ms-jpq/coq_nvim", branch = "coq" },
+  { "ms-jpq/coq.artifacts", branch = "artifacts" },
+  { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } }
 })
 
 -- Plugin specific configurations
 vim.cmd.colorscheme "tokyonight"
+vim.notify = require("notify")
+
+require("fzf-lua").setup({
+  lsp = {
+    -- make lsp requests synchronous so they work with null-ls
+    async_or_timeout = 3000,
+  },
+})
 require("gitsigns").setup()
 require("lualine").setup({
   options = {
@@ -44,13 +60,11 @@ require("lualine").setup({
   }
 })
 
-vim.notify = require("notify")
 -- mini.nvim
 require("mini.ai").setup()
 require("mini.animate").setup()
 require("mini.basics").setup()
 require("mini.bracketed").setup()
-require("mini.completion").setup()
 require("mini.cursorword").setup()
 require("mini.indentscope").setup()
 require("mini.pairs").setup()
@@ -61,7 +75,7 @@ require("which-key").setup()
 require('nvim-treesitter.configs').setup({
   highlight = {
     enable = true,
-    disable = function(lang, buf)
+    disable = function(_, buf)
       local max_filesize = 100 * 1024 -- 100 KB
       local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
       if ok and stats and stats.size > max_filesize then
@@ -70,7 +84,97 @@ require('nvim-treesitter.configs').setup({
     end,
   }
 })
--- require("neodev").setup()
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "cssls",
+    "docker_compose_language_service",
+    "dockerls",
+    "gopls",
+    "html",
+    "jsonls",
+    "lua_ls",
+    "svelte",
+    "tailwindcss",
+    "tsserver",
+    "yamlls",
+  }
+})
+require("neodev").setup()
+require("mason-lspconfig").setup_handlers {
+  function (server_name) -- default handler (optional)
+    require("lspconfig")[server_name].setup(require("coq").lsp_ensure_capabilities({}))
+  end,
+  ["lua_ls"] = function ()
+    require("lspconfig").lua_ls.setup({
+      settings = {
+        Lua = {
+          completion = {
+            callSnippet = "Replace"
+          }
+        }
+      }
+    })
+  end
+}
+local null_ls = require("null-ls")
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+null_ls.setup({
+  sources = {
+    null_ls.builtins.diagnostics.markdownlint,
+    null_ls.builtins.formatting.markdownlint,
+    null_ls.builtins.diagnostics.commitlint,
+    null_ls.builtins.diagnostics.alex,
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.jq,
+    null_ls.builtins.formatting.golines,
+  },
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ async = false })
+        end,
+      })
+    end
+  end,
+})
+
+-- Keymaps
+-- lsp config
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<leader>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+  end,
+})
+-- trouble.nvim
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+  {silent = true, noremap = true}
+)
+-- fzf lua
+vim.keymap.set("n", "<C-p>", "<cmd>lua require('fzf-lua').files()<CR>", { silent = true })
 
 -- Vim settings
 vim.o.expandtab = true
