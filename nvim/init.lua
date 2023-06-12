@@ -40,6 +40,7 @@ require("lazy").setup({
   { "folke/neodev.nvim", opts = {} },
   { "ms-jpq/coq_nvim", branch = "coq" },
   { "ms-jpq/coq.artifacts", branch = "artifacts" },
+  { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } }
 })
 
 -- Plugin specific configurations
@@ -68,7 +69,7 @@ require("which-key").setup()
 require('nvim-treesitter.configs').setup({
   highlight = {
     enable = true,
-    disable = function(lang, buf)
+    disable = function(_, buf)
       local max_filesize = 100 * 1024 -- 100 KB
       local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
       if ok and stats and stats.size > max_filesize then
@@ -94,11 +95,9 @@ require("mason-lspconfig").setup({
   }
 })
 require("neodev").setup()
-local coq = require("coq")
-
 require("mason-lspconfig").setup_handlers {
   function (server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup(coq.lsp_ensure_capabilities({}))
+    require("lspconfig")[server_name].setup(require("coq").lsp_ensure_capabilities({}))
   end,
   ["lua_ls"] = function ()
     require("lspconfig").lua_ls.setup({
@@ -112,6 +111,31 @@ require("mason-lspconfig").setup_handlers {
     })
   end
 }
+local null_ls = require("null-ls")
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+null_ls.setup({
+  sources = {
+    null_ls.builtins.diagnostics.markdownlint,
+    null_ls.builtins.formatting.markdownlint,
+    null_ls.builtins.diagnostics.commitlint,
+    null_ls.builtins.diagnostics.alex,
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.jq,
+    null_ls.builtins.formatting.golines,
+  },
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ async = false })
+        end,
+      })
+    end
+  end,
+})
 
 -- Vim settings
 vim.o.expandtab = true
