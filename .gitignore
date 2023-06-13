@@ -2,8 +2,9 @@ configstore/
 nvim/.netrwhist
 nvim/lazy-lock.json
 fish/completions/
-fish/function/ho.fish
 fish/fish_variables
+fish/function/ho.fish
+fish/functions/fzf_key_bindings.fish
 gcloud/
 github-copilot/
 gitui/
