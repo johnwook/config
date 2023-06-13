@@ -118,13 +118,7 @@ require("mason-lspconfig").setup_handlers {
       }
     }))
   end,
-  ["tsserver"] = function ()
-    -- tsserver lsp is handled by typescript.nvim
-  end
 }
-require("typescript").setup({
-  server = coq.lsp_ensure_capabilities({})
-})
 local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
