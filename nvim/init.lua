@@ -136,6 +136,7 @@ null_ls.setup({
     null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.jq,
     null_ls.builtins.formatting.golines,
+    require("typescript.extensions.null-ls.code-actions"),
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
@@ -171,9 +172,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>f', function()
       vim.lsp.buf.format { async = true }
-    end, opts)
-    vim.keymap.set('n', '<leader>or', function()
-      require("typescript").actions.organizeImports({ sync = true })
     end, opts)
   end,
 })
