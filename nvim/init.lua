@@ -33,6 +33,16 @@ require("lazy").setup({
     end,
   },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter-textobjects", dependencies = { "nvim-treesitter/nvim-treesitter" } },
+  { "ggandor/leap.nvim", dependencies = { "tpope/vim-repeat" } },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({})
+    end
+  },
   -- LSP
   { "williamboman/mason.nvim", build = ":MasonUpdate" },
   "williamboman/mason-lspconfig.nvim",
@@ -47,7 +57,6 @@ require("lazy").setup({
 -- Plugin specific configurations
 vim.cmd.colorscheme "tokyonight"
 vim.notify = require("notify")
-
 require("fzf-lua").setup({
   lsp = {
     -- make lsp requests synchronous so they work with null-ls
@@ -60,7 +69,6 @@ require("lualine").setup({
     theme = "tokyonight"
   }
 })
-
 -- mini.nvim
 require("mini.ai").setup()
 require("mini.animate").setup()
@@ -69,11 +77,10 @@ require("mini.bracketed").setup()
 require("mini.cursorword").setup()
 require("mini.indentscope").setup()
 require("mini.pairs").setup()
-require("mini.surround").setup()
 require("mini.tabline").setup()
 require("mini.trailspace").setup()
 require("which-key").setup()
-require('nvim-treesitter.configs').setup({
+require("nvim-treesitter.configs").setup({
   highlight = {
     enable = true,
     disable = function(_, buf)
@@ -85,6 +92,7 @@ require('nvim-treesitter.configs').setup({
     end,
   }
 })
+require("leap").add_default_mappings()
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
@@ -148,23 +156,23 @@ null_ls.setup({
 
 -- Keymaps
 -- lsp config
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<leader>f', function()
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+    vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, opts)
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+    vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "<leader>f", function()
       vim.lsp.buf.format { async = true }
     end, opts)
   end,
