@@ -40,7 +40,8 @@ require("lazy").setup({
   { "folke/neodev.nvim", opts = {} },
   { "ms-jpq/coq_nvim", branch = "coq" },
   { "ms-jpq/coq.artifacts", branch = "artifacts" },
-  { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } }
+  { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+  "jose-elias-alvarez/typescript.nvim",
 })
 
 -- Plugin specific configurations
@@ -101,12 +102,13 @@ require("mason-lspconfig").setup({
   }
 })
 require("neodev").setup()
+local coq = require("coq")
 require("mason-lspconfig").setup_handlers {
   function (server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup(require("coq").lsp_ensure_capabilities({}))
+    require("lspconfig")[server_name].setup(coq.lsp_ensure_capabilities({}))
   end,
   ["lua_ls"] = function ()
-    require("lspconfig").lua_ls.setup({
+    require("lspconfig").lua_ls.setup(coq.lsp_ensure_capabilities({
       settings = {
         Lua = {
           completion = {
@@ -114,9 +116,14 @@ require("mason-lspconfig").setup_handlers {
           }
         }
       }
-    })
+    }))
+  end,
+  ["tsserver"] = function ()
   end
 }
+require("typescript").setup({
+  server = coq.lsp_ensure_capabilities({})
+})
 local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
@@ -163,6 +170,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>f', function()
       vim.lsp.buf.format { async = true }
+    end, opts)
+    vim.keymap.set('n', '<leader>or', function()
+      require("typescript").actions.organizeImports({ sync = true })
     end, opts)
   end,
 })
