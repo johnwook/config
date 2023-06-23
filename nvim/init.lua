@@ -52,6 +52,7 @@ require("lazy").setup({
   { "ms-jpq/coq.artifacts", branch = "artifacts" },
   { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   "jose-elias-alvarez/typescript.nvim",
+  { "windwp/nvim-autopairs", event = "InsertEnter" },
 })
 
 -- Plugin specific configurations
@@ -76,7 +77,6 @@ require("mini.basics").setup()
 require("mini.bracketed").setup()
 require("mini.cursorword").setup()
 require("mini.indentscope").setup()
-require("mini.pairs").setup()
 require("mini.tabline").setup()
 require("mini.trailspace").setup()
 require("which-key").setup()
@@ -153,6 +153,7 @@ null_ls.setup({
     end
   end,
 })
+require("nvim-autopairs").setup()
 
 -- Keymaps
 -- lsp config
