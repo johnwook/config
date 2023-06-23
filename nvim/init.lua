@@ -39,9 +39,6 @@ require("lazy").setup({
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
-    config = function()
-        require("nvim-surround").setup({})
-    end
   },
   -- LSP
   { "williamboman/mason.nvim", build = ":MasonUpdate" },
@@ -52,7 +49,6 @@ require("lazy").setup({
   { "ms-jpq/coq.artifacts", branch = "artifacts" },
   { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   "jose-elias-alvarez/typescript.nvim",
-  { "windwp/nvim-autopairs", event = "InsertEnter" },
 })
 
 -- Plugin specific configurations
@@ -77,6 +73,7 @@ require("mini.basics").setup()
 require("mini.bracketed").setup()
 require("mini.cursorword").setup()
 require("mini.indentscope").setup()
+require("mini.pairs").setup()
 require("mini.tabline").setup()
 require("mini.trailspace").setup()
 require("which-key").setup()
@@ -110,6 +107,7 @@ require("mason-lspconfig").setup({
   }
 })
 require("neodev").setup()
+require("nvim-surround").setup()
 local coq = require("coq")
 require("mason-lspconfig").setup_handlers {
   function (server_name) -- default handler (optional)
@@ -153,7 +151,6 @@ null_ls.setup({
     end
   end,
 })
-require("nvim-autopairs").setup()
 
 -- Keymaps
 -- lsp config
