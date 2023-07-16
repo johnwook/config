@@ -50,6 +50,7 @@ require("lazy").setup({
   { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   "jose-elias-alvarez/typescript.nvim",
   { "windwp/nvim-autopairs", event = "InsertEnter" },
+  "windwp/nvim-ts-autotag",
 })
 
 -- Plugin specific configurations
@@ -78,6 +79,9 @@ require("mini.tabline").setup()
 require("mini.trailspace").setup()
 require("which-key").setup()
 require("nvim-treesitter.configs").setup({
+  autotag = {
+    enable = true,
+  },
   highlight = {
     enable = true,
     disable = function(_, buf)
@@ -232,3 +236,4 @@ vim.o.tabstop = 2
 
 vim.g.python3_host_prog = "/Users/johnwook/.asdf/installs/python/3.10.11/bin/python3"
 vim.g.node_host_prog = "/Users/johnwook/.asdf/installs/nodejs/18.16.0/bin/neovim-node-host"
+vim.cmd 'autocmd BufRead,BufNewFile *.postcss set filetype=css'
