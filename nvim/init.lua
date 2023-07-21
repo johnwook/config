@@ -47,10 +47,12 @@ require("lazy").setup({
   { "folke/neodev.nvim", opts = {} },
   { "ms-jpq/coq_nvim", branch = "coq" },
   { "ms-jpq/coq.artifacts", branch = "artifacts" },
+  { "ms-jpq/coq.thirdparty", branch = "3p" },
   { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   "jose-elias-alvarez/typescript.nvim",
   { "windwp/nvim-autopairs", event = "InsertEnter" },
   "windwp/nvim-ts-autotag",
+  "github/copilot.vim",
 })
 
 -- Plugin specific configurations
@@ -128,6 +130,10 @@ require("mason-lspconfig").setup_handlers {
       }
     }))
   end,
+}
+require("coq_3p") {
+  { src = "nvimlua", short_name = "nLUA" },
+  { src = "copilot", short_name = "COP", accept_key = "<c-f>" },
 }
 local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
