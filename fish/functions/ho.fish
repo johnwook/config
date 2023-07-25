@@ -1,3 +1,3 @@
-function ho --wraps='hasura console --project /Users/johnwook/Codes/oopy/oopy-hasura' --description 'alias ho=hasura console --project /Users/johnwook/Codes/oopy/oopy-hasura'
-  hasura console --project /Users/johnwook/Codes/oopy/oopy-hasura $argv
+function ho --description 'run hasura console for oopy'
+  hasura console --project /Users/johnwook/Codes/oopy/oopy-hasura --console-port 9696 --api-port 9694 $argv
 end
