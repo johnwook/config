@@ -142,12 +142,10 @@ null_ls.setup({
     null_ls.builtins.diagnostics.markdownlint,
     null_ls.builtins.formatting.markdownlint,
     null_ls.builtins.diagnostics.commitlint,
-    null_ls.builtins.diagnostics.alex,
     null_ls.builtins.formatting.prettier.with({
       extra_filetypes = { "svelte" },
     }),
     null_ls.builtins.formatting.jq,
-    null_ls.builtins.formatting.golines,
     require("typescript.extensions.null-ls.code-actions"),
   },
   on_attach = function(client, bufnr)
