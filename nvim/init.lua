@@ -40,6 +40,7 @@ require("lazy").setup({
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
   },
+  { "mhartington/formatter.nvim" },
   -- LSP
   { "williamboman/mason.nvim", build = ":MasonUpdate" },
   "williamboman/mason-lspconfig.nvim",
@@ -48,8 +49,6 @@ require("lazy").setup({
   { "ms-jpq/coq_nvim", branch = "coq" },
   { "ms-jpq/coq.artifacts", branch = "artifacts" },
   { "ms-jpq/coq.thirdparty", branch = "3p" },
-  { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-  "jose-elias-alvarez/typescript.nvim",
   { "windwp/nvim-autopairs", event = "InsertEnter" },
   "windwp/nvim-ts-autotag",
   "github/copilot.vim",
@@ -81,9 +80,6 @@ require("mini.tabline").setup()
 require("mini.trailspace").setup()
 require("which-key").setup()
 require("nvim-treesitter.configs").setup({
-  autotag = {
-    enable = true,
-  },
   highlight = {
     enable = true,
     disable = function(_, buf)
@@ -93,6 +89,7 @@ require("nvim-treesitter.configs").setup({
         return true
       end
     end,
+    additional_vim_regex_highlighting = false,
   }
 })
 require("leap").add_default_mappings()
@@ -133,33 +130,27 @@ require("coq_3p") {
   { src = "nvimlua", short_name = "nLUA" },
   { src = "copilot", short_name = "COP", accept_key = "<c-f>" },
 }
-local null_ls = require("null-ls")
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-null_ls.setup({
-  sources = {
-    null_ls.builtins.diagnostics.markdownlint,
-    null_ls.builtins.formatting.markdownlint,
-    null_ls.builtins.diagnostics.commitlint,
-    null_ls.builtins.diagnostics.alex,
-    null_ls.builtins.formatting.prettier.with({
-      extra_filetypes = { "svelte" },
-    }),
-    null_ls.builtins.formatting.jq,
-    null_ls.builtins.formatting.golines,
-    require("typescript.extensions.null-ls.code-actions"),
-  },
-  on_attach = function(client, bufnr)
-    if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.format({ async = false })
-        end,
-      })
-    end
-  end,
+require("formatter").setup({
+  filetype = {
+    javascript = {
+      require("formatter.filetypes.javascript").prettier
+    },
+    svelte = {
+      require("formatter.filetypes.svelte").prettier
+    },
+    typescript = {
+      require("formatter.filetypes.typescript").prettier
+    },
+    ["*"] = {
+      require("formatter.filetypes.any").remove_trailing_whitespace
+    }
+  }
+})
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = vim.api.nvim_create_augroup("FormatAutogroup", { clear = true }),
+  command = "FormatWrite",
+  pattern = "*"
 })
 
 -- Autopairs with coq (https://github.com/windwp/nvim-autopairs)
