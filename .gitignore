@@ -12,3 +12,5 @@ karabiner/
 k9s/
 direnv/
 .luarc.json
+gh/
+gh-copilot/
