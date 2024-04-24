@@ -147,15 +147,18 @@ require("mason-lspconfig").setup_handlers({
 require("coq_3p")({
 	{ src = "nvimlua", short_name = "nLUA" },
 	{ src = "bc", short_name = "MATH", precision = 3 },
-	{ src = "copilot", short_name = "COP", accept_key = "<c-f>" },
+  { src = "copilot", short_name = "COP", accept_key = "<c-f>" },
 })
 require("formatter").setup({
 	filetype = {
-		lua = {
-			require("formatter.filetypes.lua").stylua,
-		},
+    html = {
+      require("formatter.filetypes.html").prettier,
+    },
 		javascript = {
 			require("formatter.filetypes.javascript").prettier,
+		},
+		lua = {
+			require("formatter.filetypes.lua").stylua,
 		},
 		svelte = {
 			require("formatter.filetypes.svelte").prettier,
@@ -163,6 +166,10 @@ require("formatter").setup({
 		typescript = {
 			require("formatter.filetypes.typescript").prettier,
 		},
+    go = {
+      require("formatter.filetypes.go").goimports,
+      require("formatter.filetypes.go").golines,
+    },
 		["*"] = {
 			require("formatter.filetypes.any").remove_trailing_whitespace,
 		},
@@ -277,4 +284,3 @@ vim.o.tabstop = 2
 
 vim.g.python3_host_prog = "/Users/johnwook/.asdf/installs/python/3.10.11/bin/python3"
 vim.g.node_host_prog = "/Users/johnwook/.asdf/installs/nodejs/18.16.0/bin/neovim-node-host"
-vim.cmd("autocmd BufRead,BufNewFile *.postcss set filetype=css")
