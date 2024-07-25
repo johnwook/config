@@ -97,6 +97,7 @@ require("mini.ai").setup()
 require("mini.animate").setup()
 require("mini.basics").setup()
 require("mini.bracketed").setup()
+require("mini.comment").setup()
 require("mini.cursorword").setup()
 require("mini.indentscope").setup()
 require("mini.tabline").setup()
@@ -147,18 +148,24 @@ require("mason-lspconfig").setup_handlers({
 require("coq_3p")({
 	{ src = "nvimlua", short_name = "nLUA" },
 	{ src = "bc", short_name = "MATH", precision = 3 },
-  { src = "copilot", short_name = "COP", accept_key = "<c-f>" },
+	{ src = "copilot", short_name = "COP", accept_key = "<c-f>" },
 })
 require("formatter").setup({
 	filetype = {
-    html = {
-      require("formatter.filetypes.html").prettier,
-    },
+		css = {
+			require("formatter.filetypes.css").prettier,
+		},
+		html = {
+			require("formatter.filetypes.html").prettier,
+		},
 		javascript = {
 			require("formatter.filetypes.javascript").prettier,
 		},
 		lua = {
 			require("formatter.filetypes.lua").stylua,
+		},
+		postcss = {
+			require("formatter.filetypes.css").prettier,
 		},
 		svelte = {
 			require("formatter.filetypes.svelte").prettier,
@@ -166,10 +173,10 @@ require("formatter").setup({
 		typescript = {
 			require("formatter.filetypes.typescript").prettier,
 		},
-    go = {
-      require("formatter.filetypes.go").goimports,
-      require("formatter.filetypes.go").golines,
-    },
+		go = {
+			require("formatter.filetypes.go").goimports,
+			require("formatter.filetypes.go").golines,
+		},
 		["*"] = {
 			require("formatter.filetypes.any").remove_trailing_whitespace,
 		},
@@ -283,4 +290,4 @@ vim.o.softtabstop = 2
 vim.o.tabstop = 2
 
 vim.g.python3_host_prog = "/Users/johnwook/.asdf/installs/python/3.10.11/bin/python3"
-vim.g.node_host_prog = "/Users/johnwook/.asdf/installs/nodejs/18.16.0/bin/neovim-node-host"
+vim.g.node_host_prog = "/Users/johnwook/.asdf/installs/nodejs/20.12.2/bin/neovim-node-host"
