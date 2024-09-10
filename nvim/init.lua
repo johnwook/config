@@ -11,7 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-vim.g.coq_settings = { auto_start = "shut-up", keymap = { recommended = false } }
 
 require("lazy").setup({
 	-- FZF
@@ -19,7 +18,43 @@ require("lazy").setup({
 	-- Color theme
 	{ "folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {} },
 	-- Status / Bar
-	{ "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
+	{
+		"folke/trouble.nvim",
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
+		cmd = "Trouble",
+		keys = {
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xX",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>cs",
+				"<cmd>Trouble symbols toggle focus=false<cr>",
+				desc = "Symbols (Trouble)",
+			},
+			{
+				"<leader>cl",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+			{
+				"<leader>xL",
+				"<cmd>Trouble loclist toggle<cr>",
+				desc = "Location List (Trouble)",
+			},
+			{
+				"<leader>xQ",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
+		},
+	},
 	{ "lewis6991/gitsigns.nvim" },
 	{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{ "rcarriga/nvim-notify" },
@@ -56,18 +91,28 @@ require("lazy").setup({
 	-- LSP & formatter
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
-	{ "neovim/nvim-lspconfig" },
+	{
+		"neovim/nvim-lspconfig",
+		lazy = false,
+		dependencies = {
+			{ "ms-jpq/coq_nvim", branch = "coq" },
+			{ "ms-jpq/coq.artifacts", branch = "artifacts" },
+			{ "ms-jpq/coq.thirdparty", branch = "3p" },
+		},
+		init = function()
+			vim.g.coq_settings = {
+				auto_start = "shut-up",
+				keymap = { recommended = false },
+			}
+		end,
+	},
 	{ "mhartington/formatter.nvim" },
-	-- Autocomplete
-	{ "ms-jpq/coq_nvim", branch = "coq" },
-	{ "ms-jpq/coq.artifacts", branch = "artifacts" },
-	{ "ms-jpq/coq.thirdparty", branch = "3p" },
 	-- Copilot
 	"github/copilot.vim",
 })
 
 -- Plugin specific configurations
-vim.cmd([[colorscheme tokyonight]])
+vim.cmd([[colorscheme tokyonight-storm]])
 require("gitsigns").setup()
 require("lualine").setup({
 	options = {
@@ -107,7 +152,6 @@ require("mini.trailspace").setup()
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {
-		"bashls",
 		"cssls",
 		"dockerls",
 		"docker_compose_language_service",
@@ -116,7 +160,7 @@ require("mason-lspconfig").setup({
 		"graphql",
 		"html",
 		"jsonls",
-		"tsserver",
+		"ts_ls",
 		"lua_ls",
 		"svelte",
 		"taplo",
@@ -145,11 +189,6 @@ require("mason-lspconfig").setup_handlers({
 		}))
 	end,
 })
-require("coq_3p")({
-	{ src = "nvimlua", short_name = "nLUA" },
-	{ src = "bc", short_name = "MATH", precision = 3 },
-	{ src = "copilot", short_name = "COP", accept_key = "<c-f>" },
-})
 require("formatter").setup({
 	filetype = {
 		css = {
@@ -160,6 +199,9 @@ require("formatter").setup({
 		},
 		javascript = {
 			require("formatter.filetypes.javascript").prettier,
+		},
+		json = {
+			require("formatter.filetypes.json").prettier,
 		},
 		lua = {
 			require("formatter.filetypes.lua").stylua,
@@ -262,26 +304,6 @@ autocmd("BufWritePost", {
 	group = "__formatter__",
 	command = ":FormatWrite",
 })
-
--- Keybindings for trouble.nvim
-vim.keymap.set("n", "<leader>xx", function()
-	require("trouble").toggle()
-end)
-vim.keymap.set("n", "<leader>xw", function()
-	require("trouble").toggle("workspace_iagnostics")
-end)
-vim.keymap.set("n", "<leader>xd", function()
-	require("trouble").toggle("document_diagnostics")
-end)
-vim.keymap.set("n", "<leader>xq", function()
-	require("trouble").toggle("quickfix")
-end)
-vim.keymap.set("n", "<leader>xl", function()
-	require("trouble").toggle("loclist")
-end)
-vim.keymap.set("n", "gR", function()
-	require("trouble").toggle("lsp_references")
-end)
 
 -- Vim settings
 vim.o.expandtab = true
