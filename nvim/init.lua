@@ -219,6 +219,9 @@ require("formatter").setup({
 			require("formatter.filetypes.go").goimports,
 			require("formatter.filetypes.go").golines,
 		},
+		graphql = {
+			require("formatter.filetypes.graphql").prettier,
+		},
 		["*"] = {
 			require("formatter.filetypes.any").remove_trailing_whitespace,
 		},
