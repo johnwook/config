@@ -315,4 +315,4 @@ vim.o.softtabstop = 2
 vim.o.tabstop = 2
 
 vim.g.python3_host_prog = "/Users/johnwook/.asdf/installs/python/3.10.11/bin/python3"
-vim.g.node_host_prog = "/Users/johnwook/.asdf/installs/nodejs/20.12.2/bin/neovim-node-host"
+vim.g.node_host_prog = "/Users/johnwook/.asdf/installs/nodejs/22.11.0/bin/neovim-node-host"
