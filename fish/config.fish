@@ -1,7 +1,3 @@
-if status is-interactive
-  #
-end
-
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -18,10 +14,6 @@ set FZF_CTRL_T_OPTS "
 set FZF_ALT_C_COMMAND fd --type d --hidden --follow --exclude .git . \$dir
 set FZF_ALT_C_OPTS "--preview='tree -C {}'"
 
-# ZELLIJ
-set ZELLIJ_AUTO_ATTACH true
-set ZELLIJ_AUTO_EXIT true
-
 # SSH
 set SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 
@@ -35,3 +27,5 @@ end
 if status is-interactive
     eval (zellij setup --generate-auto-start fish | string collect)
 end
+
+test -f ~/.inshellisense/fish/init.fish && source ~/.inshellisense/fish/init.fish
