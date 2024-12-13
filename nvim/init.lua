@@ -139,8 +139,11 @@ require("nvim-ts-autotag").setup()
 
 -- mini.nvim
 require("mini.ai").setup()
-require("mini.animate").setup()
-require("mini.basics").setup()
+require("mini.basics").setup({
+  autocommands = {
+    relnum_in_visual_mode = true,
+  }
+})
 require("mini.bracketed").setup()
 require("mini.comment").setup()
 require("mini.cursorword").setup()
