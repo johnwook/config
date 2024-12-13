@@ -308,6 +308,9 @@ autocmd("BufWritePost", {
 	command = ":FormatWrite",
 })
 
+-- Fzflua
+vim.keymap.set("n", "<c-P>", require("fzf-lua").files, { desc = "Fzf Files" })
+
 -- Vim settings
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
