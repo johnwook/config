@@ -55,7 +55,6 @@ require("lazy").setup({
 			},
 		},
 	},
-	{ "lewis6991/gitsigns.nvim" },
 	{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{ "rcarriga/nvim-notify" },
 	-- Utility
@@ -113,7 +112,6 @@ require("lazy").setup({
 
 -- Plugin specific configurations
 vim.cmd([[colorscheme tokyonight-storm]])
-require("gitsigns").setup()
 require("lualine").setup({
 	options = {
 		theme = "tokyonight",
