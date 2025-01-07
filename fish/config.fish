@@ -28,4 +28,3 @@ if status is-interactive
     eval (zellij setup --generate-auto-start fish | string collect)
 end
 
-test -f ~/.inshellisense/fish/init.fish && source ~/.inshellisense/fish/init.fish

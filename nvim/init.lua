@@ -138,14 +138,13 @@ require("nvim-ts-autotag").setup()
 -- mini.nvim
 require("mini.ai").setup()
 require("mini.basics").setup({
-  autocommands = {
-    relnum_in_visual_mode = true,
-  }
+	autocommands = {
+		relnum_in_visual_mode = true,
+	},
 })
 require("mini.bracketed").setup()
 require("mini.comment").setup()
 require("mini.cursorword").setup()
-require("mini.indentscope").setup()
 require("mini.tabline").setup()
 require("mini.trailspace").setup()
 
@@ -317,6 +316,7 @@ vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
 vim.o.tabstop = 2
+vim.o.signcolumn = "number"
 
 vim.g.python3_host_prog = "/Users/johnwook/.asdf/installs/python/3.10.11/bin/python3"
 vim.g.node_host_prog = "/Users/johnwook/.asdf/installs/nodejs/22.11.0/bin/neovim-node-host"
