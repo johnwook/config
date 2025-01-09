@@ -60,6 +60,59 @@ require("lazy").setup({
 		{ "ibhagwan/fzf-lua", opts = {} },
 		{ "williamboman/mason.nvim", opts = {} },
 		{
+			"williamboman/mason-lspconfig.nvim",
+			opts = {
+				ensure_installed = {
+					"cssls",
+					"dockerls",
+					"docker_compose_language_service",
+					"eslint",
+					"gopls",
+					"graphql",
+					"html",
+					"jsonls",
+					"ts_ls",
+					"lua_ls",
+					"svelte",
+					"taplo",
+					"tailwindcss",
+					"yamlls",
+				},
+			},
+		},
+		{
+			"neovim/nvim-lspconfig",
+			dependencies = {
+				{ "ms-jpq/coq_nvim", branch = "coq" },
+				-- 9000+ Snippets
+				{ "ms-jpq/coq.artifacts", branch = "artifacts" },
+				-- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+				-- Need to **configure separately**
+				{ "ms-jpq/coq.thirdparty", branch = "3p" },
+			},
+			init = function()
+				vim.g.coq_settings = {
+					auto_start = true, -- if you want to start COQ at startup
+					-- Your COQ settings here
+				}
+			end,
+		},
+		{
+			"folke/lazydev.nvim",
+			ft = "lua", -- only load on lua files
+			opts = {
+				library = {
+					"lazy.nvim",
+					{ path = "LazyVim", words = { "LazyVim" } },
+					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				},
+				integrations = {
+					cmp = false,
+					coq = true,
+				},
+			},
+		},
+		{
 			"stevearc/conform.nvim",
 			event = { "BufWritePre" },
 			cmd = { "ConformInfo" },
@@ -153,14 +206,39 @@ require("lazy").setup({
 		},
 		{ "folke/todo-comments.nvim", opts = {} },
 		{ "nvim-lua/plenary.nvim", lazy = true },
-		k("kylechui/nvim-surround"),
-		version = "*", -- Use for stability; omit to use `main` branch for the latest features
-		event = "VeryLazy",
-		opts = {},
-		k,
+		{
+			"kylechui/nvim-surround",
+			version = "*", -- Use for stability; omit to use `main` branch for the latest features
+			event = "VeryLazy",
+			opts = {},
+		},
 	},
 	-- automatically check for plugin updates
 	checker = { enabled = true },
+})
+
+require("mason-lspconfig").setup_handlers({
+	function(server_name)
+		require("lspconfig")[server_name].setup(require("coq").lsp_ensure_capabilities({}))
+	end,
+})
+require("coq_3p")({
+	{ src = "nvimlua", short_name = "nLUA" },
+	{ src = "bc", short_name = "MATH", precision = 4 },
+})
+
+require("nvim-treesitter.configs").setup({
+	highlight = {
+		enable = true,
+		disable = function(_, buf)
+			local max_filesize = 100 * 1024 -- 100 KB
+			local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+			if ok and stats and stats.size > max_filesize then
+				return true
+			end
+		end,
+		additional_vim_regex_highlighting = false,
+	},
 })
 
 -- Fzflua
