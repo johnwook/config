@@ -29,6 +29,9 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
+vim.opt.number = true
+vim.opt.signcolumn = "yes"
+vim.opt.relativenumber = true
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -212,6 +215,7 @@ require("lazy").setup({
 			event = "VeryLazy",
 			opts = {},
 		},
+		{ "lewis6991/gitsigns.nvim", opts = {} },
 	},
 	-- automatically check for plugin updates
 	checker = { enabled = true },
