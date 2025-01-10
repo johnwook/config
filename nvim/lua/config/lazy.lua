@@ -98,6 +98,7 @@ require("lazy").setup({
 				"hrsh7th/cmp-calc",
 				"hrsh7th/cmp-cmdline",
 				"hrsh7th/cmp-nvim-lsp",
+				"hrsh7th/cmp-nvim-lsp-signature-help",
 			},
 			config = function()
 				local cmp = require("cmp")
@@ -160,6 +161,7 @@ require("lazy").setup({
 						{ name = "nvim_lsp" },
 						{ name = "luasnip" },
 					}, {
+						{ name = "nvim_lsp_signature_help" },
 						{ name = "buffer" },
 						{ name = "emoji" },
 						{ name = "path" },
