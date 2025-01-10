@@ -147,6 +147,7 @@ require("lazy").setup({
 						end, { "i", "s" }),
 					}),
 					sources = cmp.config.sources({
+						{ name = "copilot" },
 						{ name = "nvim_lsp" },
 						{ name = "luasnip" },
 					}, {
@@ -302,6 +303,22 @@ require("lazy").setup({
 		},
 		{ "lewis6991/gitsigns.nvim", opts = {} },
 		{ "stevearc/dressing.nvim", opts = {} },
+		{
+			"zbirenbaum/copilot.lua",
+			cmd = "Copilot",
+			event = "InsertEnter",
+			config = function()
+				require("copilot").setup({
+					panel = {
+						enabled = false,
+					},
+					suggestion = {
+						enabled = false,
+					},
+				})
+			end,
+		},
+		{ "zbirenbaum/copilot-cmp", opts = {} },
 	},
 	-- automatically check for plugin updates
 	checker = { enabled = true },
