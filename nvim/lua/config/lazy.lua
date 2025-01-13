@@ -326,6 +326,13 @@ require("lazy").setup({
 			end,
 		},
 		{ "zbirenbaum/copilot-cmp", opts = {} },
+		{
+			"windwp/nvim-autopairs",
+			event = "InsertEnter",
+			config = true,
+			opts = {},
+		},
+		{ "windwp/nvim-ts-autotag", event = "InsertEnter", opts = {} },
 	},
 	-- automatically check for plugin updates
 	checker = { enabled = true },
@@ -356,5 +363,13 @@ require("nvim-treesitter.configs").setup({
 })
 
 -- Fzflua
+vim.keymap.set("n", "<leader>b", require("fzf-lua").buffers, { desc = "Fzf Buffers" })
 vim.keymap.set("n", "<leader>p", require("fzf-lua").files, { desc = "Fzf Files" })
 vim.keymap.set("n", "<leader>g", require("fzf-lua").grep, { desc = "Fzf Grep" })
+vim.keymap.set("n", "<leader>r", require("fzf-lua").resume, { desc = "Fzf Resume" })
+
+-- autopairs
+-- If you want insert `(` after select function or method item
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+local cmp = require("cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
