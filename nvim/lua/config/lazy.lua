@@ -348,6 +348,7 @@ require("lazy").setup({
 			opts = {},
 		},
 		{ "windwp/nvim-ts-autotag", event = "InsertEnter", opts = {} },
+		{ "akinsho/bufferline.nvim", version = "*", opts = {} },
 	},
 	-- automatically check for plugin updates
 	checker = { enabled = true },
