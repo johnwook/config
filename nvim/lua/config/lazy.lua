@@ -60,7 +60,17 @@ require("lazy").setup({
 			},
 		},
 		{ "nvim-tree/nvim-web-devicons", lazy = true },
-		{ "ibhagwan/fzf-lua", opts = {} },
+		{
+			"ibhagwan/fzf-lua",
+			opts = {
+				winopts = {
+					treesitter = {
+						enabled = true,
+						fzf_colors = false,
+					},
+				},
+			},
+		},
 		{ "williamboman/mason.nvim", opts = {} },
 		{
 			"williamboman/mason-lspconfig.nvim",
@@ -233,14 +243,19 @@ require("lazy").setup({
 				-- Define your formatters
 				formatters_by_ft = {
 					lua = { "stylua" },
-					javascript = { "prettier", stop_after_first = true },
+					javascript = { "prettierd", "prettier", stop_after_first = true },
+					svelte = { "prettierd", "prettier", stop_after_first = true },
+					typescript = { "prettierd", "prettier", stop_after_first = true },
+					graphql = { "prettierd", "prettier", stop_after_first = true },
+					json = { "prettierd", "prettier", stop_after_first = true },
+					go = { "gofumpt", "goimports", "golines" },
 				},
 				-- Set default options
 				default_format_opts = {
 					lsp_format = "fallback",
 				},
 				-- Set up format-on-save
-				format_on_save = { timeout_ms = 500 },
+				format_on_save = { lsp_format = "fallback", timeout_ms = 500 },
 				-- Customize formatters
 				formatters = {
 					shfmt = {
@@ -373,7 +388,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
 		vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
 		vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
-		vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+		vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 		vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
 		vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 	end,
