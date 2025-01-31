@@ -243,11 +243,11 @@ require("lazy").setup({
 				-- Define your formatters
 				formatters_by_ft = {
 					lua = { "stylua" },
-					javascript = { "prettierd", "prettier", stop_after_first = true },
-					svelte = { "prettierd", "prettier", stop_after_first = true },
-					typescript = { "prettierd", "prettier", stop_after_first = true },
-					graphql = { "prettierd", "prettier", stop_after_first = true },
-					json = { "prettierd", "prettier", stop_after_first = true },
+					javascript = { "prettierd" },
+					svelte = { "prettierd" },
+					typescript = { "prettierd" },
+					graphql = { "prettierd" },
+					json = { "prettierd" },
 					go = { "gofumpt", "goimports", "golines" },
 				},
 				-- Set default options
