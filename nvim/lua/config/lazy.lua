@@ -441,6 +441,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "LSP actions",
 	callback = function(event)
 		local opts = { buffer = event.buf }
+		for _, client in ipairs(vim.lsp.get_clients({ buffer = event.buf })) do -- event.buf 추가
+			if client.name == "eslint" then
+				vim.keymap.set("n", "<leader>ef", "<cmd>EslintFixAll<cr>", opts)
+				break
+			end
+		end
 
 		vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
 		vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
