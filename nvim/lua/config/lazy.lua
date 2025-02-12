@@ -322,12 +322,8 @@ require("lazy").setup({
 		},
 		{ "folke/todo-comments.nvim", opts = {} },
 		{ "nvim-lua/plenary.nvim", lazy = true },
-		{
-			"kylechui/nvim-surround",
-			version = "*", -- Use for stability; omit to use `main` branch for the latest features
-			event = "VeryLazy",
-			opts = {},
-		},
+		{ "MunifTanjim/nui.nvim", lazy = true },
+		{ "kylechui/nvim-surround", version = "*", event = "VeryLazy", opts = {} },
 		{ "lewis6991/gitsigns.nvim", opts = {} },
 		{
 			"zbirenbaum/copilot.lua",
@@ -341,14 +337,11 @@ require("lazy").setup({
 			end,
 		},
 		{ "zbirenbaum/copilot-cmp", opts = {} },
-		{
-			"windwp/nvim-autopairs",
-			event = "InsertEnter",
-			config = true,
-			opts = {},
-		},
 		{ "windwp/nvim-ts-autotag", event = "InsertEnter", opts = {} },
+		{ "echasnovski/mini.pairs", version = "*", opts = {} },
+		{ "folke/ts-comments.nvim", opts = {}, event = "VeryLazy" },
 		{ "akinsho/bufferline.nvim", version = "*", opts = {} },
+		{ "nvim-neo-tree/neo-tree.nvim", branch = "v3.x" },
 		{
 			"folke/trouble.nvim",
 			opts = {}, -- for default options, refer to the configuration section for custom setup.
@@ -466,8 +459,5 @@ vim.keymap.set("n", "<leader>p", require("fzf-lua").files, { desc = "Fzf Files" 
 vim.keymap.set("n", "<leader>g", require("fzf-lua").grep, { desc = "Fzf Grep" })
 vim.keymap.set("n", "<leader>r", require("fzf-lua").resume, { desc = "Fzf Resume" })
 
--- autopairs
--- If you want insert `(` after select function or method item
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-local cmp = require("cmp")
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+-- Neotree
+vim.keymap.set("n", "<leader>t", "<cmd>Neotree toggle<cr>", { desc = "Neotree toggle" })
