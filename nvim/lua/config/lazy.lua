@@ -31,6 +31,7 @@ vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 vim.opt.number = true
 vim.opt.signcolumn = "yes"
+vim.opt.splitright = true
 vim.opt.relativenumber = true
 
 -- Setup lazy.nvim
@@ -147,7 +148,7 @@ require("lazy").setup({
 								fallback()
 							end
 						end),
-						["<Tab>"] = cmp.mapping(function(fallback)
+						["<Tab>"] = vim.schedule_wrap(function(fallback)
 							if cmp.visible() and has_words_before() then
 								cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 							elseif luasnip.locally_jumpable(1) then
@@ -155,7 +156,7 @@ require("lazy").setup({
 							else
 								fallback()
 							end
-						end, { "i", "s" }),
+						end),
 						["<S-Tab>"] = cmp.mapping(function(fallback)
 							if cmp.visible() then
 								cmp.select_prev_item()
@@ -243,11 +244,13 @@ require("lazy").setup({
 				-- Define your formatters
 				formatters_by_ft = {
 					lua = { "stylua" },
-					javascript = { "prettierd" },
-					svelte = { "prettierd" },
-					typescript = { "prettierd" },
-					graphql = { "prettierd" },
-					json = { "prettierd" },
+					css = { "prettier" },
+					html = { "prettier" },
+					javascript = { "prettier" },
+					svelte = { "prettier" },
+					typescript = { "prettier" },
+					graphql = { "prettier" },
+					json = { "prettier" },
 					go = { "gofumpt", "goimports", "golines" },
 				},
 				-- Set default options
@@ -286,13 +289,14 @@ require("lazy").setup({
 			lazy = false,
 			---@type snacks.Config
 			opts = {
-				indent = {},
-				input = {},
-				notifier = {},
-				scroll = {},
-				statuscolumn = {},
-				toggle = {},
-				words = {},
+				indent = { enabled = true },
+				input = { enabled = true },
+				notifier = { enabled = true },
+				scope = { enabled = true },
+				scroll = { enabled = true },
+				statuscolumn = { enabled = true },
+				toggle = { enabled = true },
+				words = { enabled = true },
 			},
 			keys = {
 				{
@@ -379,6 +383,14 @@ require("lazy").setup({
 				},
 			},
 		},
+		{
+			"CopilotC-Nvim/CopilotChat.nvim",
+			build = "make tiktoken",
+			opts = {
+				-- See Configuration section for options
+			},
+			-- See Commands section for default commands if you want to lazy load on them
+		},
 	},
 	-- automatically check for plugin updates
 	checker = { enabled = true },
@@ -461,3 +473,6 @@ vim.keymap.set("n", "<leader>r", require("fzf-lua").resume, { desc = "Fzf Resume
 
 -- Neotree
 vim.keymap.set("n", "<leader>t", "<cmd>Neotree toggle<cr>", { desc = "Neotree toggle" })
+
+-- Copilot
+vim.keymap.set("n", "<leader>co", "<cmd>CopilotChatToggle<cr>", { desc = "Copilot chat" })
