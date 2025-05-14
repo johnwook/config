@@ -387,7 +387,7 @@ require("lazy").setup({
 			"CopilotC-Nvim/CopilotChat.nvim",
 			build = "make tiktoken",
 			opts = {
-				-- See Configuration section for options
+				model = "gemini-2.5-pro",
 			},
 			-- See Commands section for default commands if you want to lazy load on them
 		},
@@ -400,33 +400,7 @@ local lspconfig_defaults = require("lspconfig").util.default_config
 lspconfig_defaults.capabilities =
 	vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-require("mason-lspconfig").setup_handlers({
-	function(server_name)
-		require("lspconfig")[server_name].setup({})
-	end,
-	["svelte"] = function()
-		require("lspconfig").svelte.setup({
-			on_attach = function(client, bufnr)
-				if client.name == "svelte" then
-					vim.api.nvim_create_autocmd("BufWritePost", {
-						pattern = { "*.js", "*.ts", "*.svelte" },
-						callback = function(ctx)
-							client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
-						end,
-					})
-				end
-				if vim.bo[bufnr].filetype == "svelte" then
-					vim.api.nvim_create_autocmd("BufWritePost", {
-						pattern = { "*.js", "*.ts", "*.svelte" },
-						callback = function(ctx)
-							client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
-						end,
-					})
-				end
-			end,
-		})
-	end,
-})
+require("mason-lspconfig").setup({})
 
 require("nvim-treesitter.configs").setup({
 	highlight = {
