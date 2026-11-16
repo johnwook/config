@@ -1,0 +1,13 @@
+[tools]
+node = "26.13.1"
+pnpm = "12.21.0"
+go = "1.25.4"
+lua = "5.4.8"
+"npm:agent-browser" = { version = "0.43.0", allow_builds = ["agent-browser"] }
+"npm:neovim" = "5.3.0"
+"npm:npm-check-updates" = "16.10.15"
+"npm:wrangler" = { version = "4.162.0", allow_builds = ["esbuild", "workerd"] }
+
+[settings]
+idiomatic_version_file_enable_tools = ["node", "pnpm"]
+npm.package_manager = "pnpm"

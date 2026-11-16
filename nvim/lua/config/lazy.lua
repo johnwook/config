@@ -21,7 +21,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.g.lua_interpreter_path = "/Users/johnwook/.asdf/installs/lua/5.1/bin/lua"
-vim.g.node_host_prog = "/Users/johnwook/.asdf/installs/nodejs/22.12.0/bin/neovim-node-host"
+vim.g.node_host_prog = vim.fn.expand("~/.local/share/mise/shims/neovim-node-host")
 vim.g.python3_host_prog = "/Users/johnwook/.asdf/installs/python/3.13.1/bin/python"
 
 -- Vim settings
